@@ -13,7 +13,7 @@ const props = defineProps({
   }
 })
 
-function getTimeColor(timeDiff) {
+function getTimeColor(timeDiff, alpha) {
   let red, green, blue;
 
   if(timeDiff === 0) {
@@ -46,11 +46,12 @@ function getTimeColor(timeDiff) {
 
 
   // Convert to hex format
-  const redHex = red.toString(16).padStart(2, '0');
-  const greenHex = green.toString(16).padStart(2, '0');
-  const blueHex = blue.toString(16).padStart(2, '0');
+  //const redHex = red.toString(16).padStart(2, '0');
+  //const greenHex = green.toString(16).padStart(2, '0');
+  //const blueHex = blue.toString(16).padStart(2, '0');
 
-  return `#${redHex}${greenHex}${blueHex}`;
+  //return `#${redHex}${greenHex}${blueHex}`;
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
 async function cameraCommand(camera) {
@@ -60,13 +61,13 @@ async function cameraCommand(camera) {
 </script>
 
 <template>
-<UCard class="ring-0 border-4" :style="`border-color: ${getTimeColor(player.timeDiff)}`">
+<UCard class="ring-0 border-4" :style="`border-color: ${getTimeColor(player.timeDiff, 1.0)}; background-color: ${getTimeColor(player.timeDiff, 0.2)};`">
   <div class="flex space-x-2 items-center justify-between">
     <div class="flex space-x-2 items-center">
       <Icon v-if="position === 1" name="bi:trophy-fill" class="text-yellow-500" />
       <p class="text-xl" v-else>{{position}}</p>
       <p class="text-xl">{{player.name}}</p>
-      <p v-if="player.timeDiff >= 0">{{player.timeDiff}}ms behind</p>
+      <p v-if="player.timeDiff >= 0">{{player.timeDiff}}ms</p>
       <p v-else>DNF</p>
     </div>
     <div class="flex space-x-2 items-center">
@@ -74,6 +75,7 @@ async function cameraCommand(camera) {
       <UButton @click="cameraCommand(2)" class="bg-sky-400 hover:bg-sky-600">Camera 2</UButton>
       <UButton @click="cameraCommand(3)" class="bg-purple-400 hover:bg-purple-600">Camera 3</UButton>
       <UButton @click="cameraCommand(4)" class="bg-red-400 hover:bg-red-600">Camera 4</UButton>
+      <UButton @click="cameraCommand(5)" class="bg-yellow-400 hover:bg-yellow-600">Camera 5</UButton>
     </div>
   </div>
 
