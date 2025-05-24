@@ -31,6 +31,12 @@ function getTimeColor(timeDiff, alpha) {
       red = 255;
       green = 0;
     }
+    // For 600 or less, return pink
+    else if (timeDiff <= 600) {
+        red = 240;
+        green = 7;
+        blue = 252;
+    }
     // For 7000 or more, return green
     else if (timeDiff >= 7000) {
       red = 0;
@@ -64,6 +70,8 @@ async function cameraCommand(camera) {
 <UCard class="ring-0 border-4" :style="`border-color: ${getTimeColor(player.timeDiff, 1.0)}; background-color: ${getTimeColor(player.timeDiff, 0.2)};`">
   <div class="flex space-x-2 items-center justify-between">
     <div class="flex space-x-2 items-center">
+      <b :style="`color: ${player.teamColor1}; margin-right: 0px;`">/</b>
+      <b :style="`color: ${player.teamColor2};`">/</b>
       <Icon v-if="position === 1" name="bi:trophy-fill" class="text-yellow-500" />
       <p class="text-xl" v-else>{{position}}</p>
       <p class="text-xl">{{player.name}}</p>
