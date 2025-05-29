@@ -70,36 +70,39 @@
 
 <template>
     <div class="w-full h-full overflow-clip p-10">
-        <div class="h-full overflow-y-scroll">
-            <input type="checkbox" v-model="usePitDelta" />
-            <input type="number" v-model="pitDelta" />
-            <br />
-            <TransitionGroup name="player-list" tag="div" class="grid grid-cols-1 place-items-center gap-y-2">
+      <div class="h-full overflow-y-scroll">
+        <div class="flex space-x-2 items-center">
+            <UCheckbox v-model="usePitDelta" label="Use Pit Delta" />
+            <UInput type="number" v-model="pitDelta" />
+          </div>
+          <div class="flex space-x-2 items-center mt-5">
+            <UButton @click="takeSnapshot">Take snapshot</UButton>
+            <UButton @click="clearSnapshot">Clear snapshot</UButton>
+          </div>
+          <div class="flex items-center justify-center mt-5">
+            <div tag="div" class="w-full grid grid-cols-1 place-items-center gap-y-2">
+              <PlayerRow
+                  v-for="(player, index) in playersSortedUsingPitDelta"
+                  :key="`${player.name}-${index}`"
+                  :player="player"
+                  :position="index + 1"
+                  class="w-full max-w-4xl"
+              />
+            </div>
+            <template v-if="snapshot != null">
+              <div name="player-list-snapshot" tag="div" class="w-full grid grid-cols-1 place-items-center gap-y-2">
                 <PlayerRow
-                    v-for="(player, index) in playersSortedUsingPitDelta"
+                    v-for="(player, index) in snapshot"
                     :key="`${player.name}-${index}`"
                     :player="player"
                     :position="index + 1"
-                    class="w-full max-w-3xl"
+                    class="w-full max-w-4xl"
+                    :show-cam-controls="false"
                 />
-            </TransitionGroup>
-            <br />
-            <br />
-            <br />
-            <button @click="takeSnapshot">Take snapshot</button>
-            <button @click="clearSnapshot">Clear snapshot</button>
-            <br />
-            <template v-if="snapshot != null">
-                <TransitionGroup name="player-list-snapshot" tag="div" class="grid grid-cols-1 place-items-center gap-y-2">
-                    <PlayerRow
-                        v-for="(player, index) in snapshot"
-                        :key="`${player.name}-${index}`"
-                        :player="player"
-                        :position="index + 1"
-                        class="w-full max-w-3xl"
-                    />
-                </TransitionGroup>
+              </div>
             </template>
+          </div>
+
         </div>
     </div>
 </template>
