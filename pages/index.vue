@@ -79,8 +79,8 @@
             <UButton @click="takeSnapshot">Take snapshot</UButton>
             <UButton @click="clearSnapshot">Clear snapshot</UButton>
           </div>
-          <div class="flex items-center justify-center mt-5">
-            <div tag="div" class="w-full grid grid-cols-1 place-items-center gap-y-2">
+          <div class="flex items-center justify-center mt-5 space-x-2">
+            <div class="grid grid-cols-1 place-items-center gap-y-2">
               <PlayerRow
                   v-for="(player, index) in playersSortedUsingPitDelta"
                   :key="`${player.name}-${index}`"
@@ -90,7 +90,7 @@
               />
             </div>
             <template v-if="snapshot != null">
-              <div name="player-list-snapshot" tag="div" class="w-full grid grid-cols-1 place-items-center gap-y-2">
+              <div class="grid grid-cols-1 place-items-center gap-y-2">
                 <PlayerRow
                     v-for="(player, index) in snapshot"
                     :key="`${player.name}-${index}`"

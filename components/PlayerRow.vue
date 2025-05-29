@@ -68,6 +68,8 @@ async function cameraCommand(camera) {
   await SendCameraControl(camera, props.player.name, useToast());
 }
 
+const isMinWidth1280 = useMediaQuery('(min-width: 1280px)');
+
 </script>
 
 <template>
@@ -89,11 +91,21 @@ async function cameraCommand(camera) {
     <p class="text-xl text-blue-500 ml-2">{{player.pits}}</p>
     </div>
     <div class="flex space-x-2 items-center" v-if="showCamControls">
-      <UButton @click="cameraCommand(1)">Camera 1</UButton>
-      <UButton @click="cameraCommand(2)" class="bg-sky-400 hover:bg-sky-600">Camera 2</UButton>
-      <UButton @click="cameraCommand(3)" class="bg-purple-400 hover:bg-purple-600">Camera 3</UButton>
-      <UButton @click="cameraCommand(4)" class="bg-red-400 hover:bg-red-600">Camera 4</UButton>
-      <UButton @click="cameraCommand(5)" class="bg-yellow-400 hover:bg-yellow-600">Camera 5</UButton>
+      <template v-if="isMinWidth1280">
+        <UButton @click="cameraCommand(1)" class="">Camera 1</UButton>
+        <UButton @click="cameraCommand(2)" class=" bg-sky-400 hover:bg-sky-600">Camera 2</UButton>
+        <UButton @click="cameraCommand(3)" class=" bg-purple-400 hover:bg-purple-600">Camera 3</UButton>
+        <UButton @click="cameraCommand(4)" class=" bg-red-400 hover:bg-red-600">Camera 4</UButton>
+        <UButton @click="cameraCommand(5)" class=" bg-yellow-400 hover:bg-yellow-600">Camera 5</UButton>
+      </template>
+      <template v-else>
+        <UButton @click="cameraCommand(1)">1</UButton>
+        <UButton @click="cameraCommand(2)" class="bg-sky-400 hover:bg-sky-600">2</UButton>
+        <UButton @click="cameraCommand(3)" class="bg-purple-400 hover:bg-purple-600">3</UButton>
+        <UButton @click="cameraCommand(4)" class="bg-red-400 hover:bg-red-600">4</UButton>
+        <UButton @click="cameraCommand(5)" class="bg-yellow-400 hover:bg-yellow-600">5</UButton>
+      </template>
+
     </div>
   </div>
 
