@@ -2,8 +2,8 @@ async function MakeRequest(request, method = "GET", params = null, body = null) 
     return await useFetch(useBrowserLocation().value.origin + "/api/" + request, {
         method: method,
         params: params,
-        body: body,
-    })
+        body: body
+    });
 }
 
 export async function PollPlayers(toast) {

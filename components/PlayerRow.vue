@@ -73,10 +73,11 @@ async function cameraCommand(camera) {
       <b :style="`color: ${player.teamColor1}; margin-right: 0px;`">/</b>
       <b :style="`color: ${player.teamColor2};`">/</b>
       <Icon v-if="position === 1" name="bi:trophy-fill" class="text-yellow-500" />
-      <p class="text-xl" v-else>{{position}}</p>
+      <p class="text-xl text-orange-500" v-else>{{position}}</p>
       <p class="text-xl">{{player.name}}</p>
       <p v-if="player.timeDiff >= 0">{{player.timeDiff}}ms</p>
       <p v-else>DNF</p>
+    <p class="text-xl text-blue-500">{{player.pits}}</p>
     </div>
     <div class="flex space-x-2 items-center">
       <UButton @click="cameraCommand(1)">Camera 1</UButton>
