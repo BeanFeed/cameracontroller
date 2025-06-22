@@ -11,6 +11,10 @@ const props = defineProps({
     type: Number,
     required: true
   },
+  snapshotposition: {
+    type: Number,
+    required: false
+  },
   showCamControls: {
     type: Boolean,
     default: true
@@ -25,6 +29,10 @@ function getTimeColor(timeDiff, alpha) {
     green = 169;
     blue = 252;
   } else if(timeDiff === -1) {
+    red = 100;
+    green = 100;
+    blue = 100;
+  } else if(timeDiff === -2) {
     red = 100;
     green = 100;
     blue = 100;
@@ -70,6 +78,14 @@ async function cameraCommand(camera) {
 
 const isMinWidth1280 = useMediaQuery('(min-width: 1280px)');
 
+const snapshotChange = computed(() => {
+    if(props.snapshotposition == null) {
+        return 0;
+    }
+    
+    return props.snapshotposition - props.position;
+});
+
 </script>
 
 <template>
@@ -80,6 +96,12 @@ const isMinWidth1280 = useMediaQuery('(min-width: 1280px)');
       <b :style="`color: ${player.teamColor2};`">/</b>
       <Icon v-if="position === 1" name="bi:trophy-fill" class="text-yellow-500 w-7" />
       <p class="text-xl text-orange-500 w-7" v-else>{{position}}</p>
+        <span v-if="snapshotposition != null">
+            <span v-if="snapshotChange > 0" >⬆️</span>
+            <span v-else-if="snapshotChange < 0" >⬇️</span>
+            &nbsp;
+            <span v-if="snapshotChange !== 0" style="font-size: 1.35em;" :style="`color: ${snapshotChange >= 0 ? 'white' : 'red' }`">{{Math.abs(snapshotChange)}}</span>
+        </span>
       <UPopover mode="hover">
         <UButton variant="ghost" class="text-xl w-35 overflow-clip text-white">{{player.name}}</UButton>
         <template #content>
@@ -87,6 +109,7 @@ const isMinWidth1280 = useMediaQuery('(min-width: 1280px)');
         </template>
       </UPopover>
       <p v-if="player.timeDiff >= 0" class="w-20">{{player.timeDiff}}ms</p>
+      <p v-else-if="player.timeDiff === -2" class="w-20">In Pit</p>
       <p v-else class="w-20">DNF</p>
     <p class="text-xl text-blue-500 ml-2">{{player.pits}}</p>
     </div>

@@ -29,8 +29,8 @@
         // Step 1: Convert relative timeDiffs to absolute times (from race leader)
         let cumulativeTime = 0;
         const playersWithAbsoluteTimes = originalPlayers.map(player => {
-            const absoluteTime = cumulativeTime;
             cumulativeTime += player.timeDiff;
+            const absoluteTime = cumulativeTime;
             return {
                 ...player,
                 absoluteTime
@@ -66,6 +66,23 @@
     function clearSnapshot(){
         snapshot.value = null;
     }
+    
+    function getSnapshotPlayerPosition(playerName){
+        if(snapshot.value == null){
+            return null;
+        }
+        
+        let pos = 1;
+        for(let player of snapshot.value){
+            if(player.name === playerName){
+                return pos;
+            }
+            
+            pos ++;
+        }
+        
+        return null;
+    }
 </script>
 
 <template>
@@ -85,22 +102,11 @@
                   v-for="(player, index) in playersSortedUsingPitDelta"
                   :key="`${player.name}-${index}`"
                   :player="player"
+                  :snapshotposition="getSnapshotPlayerPosition(player.name)"
                   :position="index + 1"
                   class="w-full max-w-4xl"
               />
             </div>
-            <template v-if="snapshot != null">
-              <div class="grid grid-cols-1 place-items-center gap-y-2">
-                <PlayerRow
-                    v-for="(player, index) in snapshot"
-                    :key="`${player.name}-${index}`"
-                    :player="player"
-                    :position="index + 1"
-                    class="w-full max-w-4xl"
-                    :show-cam-controls="false"
-                />
-              </div>
-            </template>
           </div>
 
         </div>
