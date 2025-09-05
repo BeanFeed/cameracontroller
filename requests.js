@@ -9,7 +9,7 @@ async function MakeRequest(request, method = "GET", params = null, body = null) 
 export async function PollPlayers(toast) {
     //return [{"name":"BillBodkin","color":-65536,"timeDiff":0,"pits":0,"teamColor1":"#FED83D","teamColor2":"#FED83D"},{"name":"GamerStevee428","color":-16749167,"timeDiff":3000,"pits":0,"teamColor1":"#B02E26","teamColor2":"#B02E26"},{"name":"Dylian_","color":-16711936,"timeDiff":8050,"pits":0,"teamColor1":"#FED83D","teamColor2":"#FED83D"},{"name":"Marshall1211066","color":-16711936,"timeDiff":87600,"pits":0,"teamColor1":"#FFAA00","teamColor2":"#FFAA00"},{"name":"EnderTheRobber","color":-16711936,"timeDiff":94850,"pits":0,"teamColor1":"#5555FF","teamColor2":"#5555FF"}];
 
-    const { data, status, error } = await MakeRequest("scoreboard", "GET", null, null)
+    const { data, status, error } = await MakeRequest("scoreboard", "GET", null, null);
 
     if(status.value === 'success') {
         return data.value;

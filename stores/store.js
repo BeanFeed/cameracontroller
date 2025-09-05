@@ -8,14 +8,4 @@ export const useStore = defineStore('cameraControl', {
     getters: {
         getPlayers: (state) => state.players,
     },
-
-    actions: {
-        async pollPlayers() {
-            try {
-                this.players = await PollPlayers(useToast());
-            } catch (e) {
-
-            }
-        },
-    },
 })

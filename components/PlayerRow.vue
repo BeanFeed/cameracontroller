@@ -120,6 +120,9 @@ const snapshotChange = computed(() => {
         <UButton @click="cameraCommand(3)" class=" bg-purple-400 hover:bg-purple-600">Camera 3</UButton>
         <UButton @click="cameraCommand(4)" class=" bg-red-400 hover:bg-red-600">Camera 4</UButton>
         <UButton @click="cameraCommand(5)" class=" bg-yellow-400 hover:bg-yellow-600">Camera 5</UButton>
+        <UButton @click="cameraCommand(6)" class=" bg-yellow-400 hover:bg-yellow-600">Camera 6</UButton>
+        <UButton @click="cameraCommand(7)" class=" bg-yellow-400 hover:bg-yellow-600">Camera 7</UButton>
+        <UButton @click="cameraCommand(8)" class=" bg-yellow-400 hover:bg-yellow-600">Camera 8</UButton>
       </template>
       <template v-else>
         <UButton @click="cameraCommand(1)">1</UButton>
@@ -127,6 +130,9 @@ const snapshotChange = computed(() => {
         <UButton @click="cameraCommand(3)" class="bg-purple-400 hover:bg-purple-600">3</UButton>
         <UButton @click="cameraCommand(4)" class="bg-red-400 hover:bg-red-600">4</UButton>
         <UButton @click="cameraCommand(5)" class="bg-yellow-400 hover:bg-yellow-600">5</UButton>
+        <UButton @click="cameraCommand(6)" class="bg-yellow-400 hover:bg-yellow-600">6</UButton>
+        <UButton @click="cameraCommand(7)" class="bg-yellow-400 hover:bg-yellow-600">7</UButton>
+        <UButton @click="cameraCommand(8)" class="bg-yellow-400 hover:bg-yellow-600">8</UButton>
       </template>
 
     </div>

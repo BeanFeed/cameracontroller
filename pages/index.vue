@@ -1,4 +1,6 @@
 <script setup lang="js">
+    import {PollPlayers} from "~/requests.js";
+    
     const usePitDelta = ref(false);
     const pitDelta = ref(0);
     
@@ -8,10 +10,31 @@
     
     let timeDelay;
     
-    onMounted(() => {
-        store.pollPlayers();
-        timeDelay = setInterval(() => {
-            store.pollPlayers();
+    onMounted(async () => {
+        try {
+            store.players = await PollPlayers(useToast());
+        }
+        catch (e){}
+        
+        timeDelay = setInterval(async() => {
+            
+            try {
+                const newPlayers = await PollPlayers(useToast());
+                
+                //console.log(newPlayers.length + " players on scoreboard")
+                
+                if(newPlayers.length > 0) {
+                    store.players = newPlayers;
+                    
+                    if(snapshot.value == null || snapshot.value.length === 0) {
+                        takeSnapshot();
+                    }
+                }
+                else{
+                    clearSnapshot();
+                }
+            }
+            catch (e){}
         }, 1000);
     })
     
@@ -59,11 +82,13 @@
     });
     
     function takeSnapshot(){
+        //console.log("Taking snapshot");
         const data = playersSortedUsingPitDelta.value;
         snapshot.value = JSON.parse(JSON.stringify(data));
     }
     
     function clearSnapshot(){
+        //console.log("Clearing snapshot");
         snapshot.value = null;
     }
     
